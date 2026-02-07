@@ -15,7 +15,7 @@ export function SeedButton() {
       const result = await seedData();
       setMessage(result.message);
       setStatus("done");
-    } catch (error) {
+    } catch {
       setMessage("Error seeding data");
       setStatus("error");
     }

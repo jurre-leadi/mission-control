@@ -67,7 +67,7 @@ export default function ActivityPage() {
           <span className="text-sm text-muted">Active filters:</span>
           {searchQuery && (
             <span className="px-2 py-1 bg-accent/10 text-accent rounded text-sm flex items-center gap-1">
-              "{searchQuery}"
+              &quot;{searchQuery}&quot;
               <button onClick={() => setSearchQuery("")} className="hover:text-foreground">
                 ✕
               </button>

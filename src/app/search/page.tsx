@@ -122,7 +122,7 @@ export default function SearchPage() {
           {searchResults && totalResults === 0 && (
             <div className="text-center py-12">
               <div className="text-4xl mb-4">🔍</div>
-              <p className="text-muted">No results found for "{debouncedQuery}"</p>
+              <p className="text-muted">No results found for &quot;{debouncedQuery}&quot;</p>
               <p className="text-sm text-muted mt-2">
                 Try different keywords or check your spelling
               </p>
@@ -285,15 +285,15 @@ export default function SearchPage() {
             <ul className="text-sm text-muted space-y-2">
               <li className="flex items-center gap-2">
                 <span className="text-accent">•</span>
-                Try searching for "roadmap" or "meeting"
+                Try searching for &quot;roadmap&quot; or &quot;meeting&quot;
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-accent">•</span>
-                Search activity descriptions like "email" or "sync"
+                Search activity descriptions like &quot;email&quot; or &quot;sync&quot;
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-accent">•</span>
-                Find tasks by title like "standup" or "deadline"
+                Find tasks by title like &quot;standup&quot; or &quot;deadline&quot;
               </li>
             </ul>
           </div>

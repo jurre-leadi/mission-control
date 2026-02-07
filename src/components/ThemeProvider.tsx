@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode, useLayoutEffect } from "react";
 
 type Theme = "dark" | "light";
 
@@ -19,18 +19,23 @@ export function useTheme() {
   return context;
 }
 
+// Use useLayoutEffect on client, useEffect on server
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
+  // Handle initial mount and theme loading
+  useIsomorphicLayoutEffect(() => {
     const stored = localStorage.getItem("theme") as Theme | null;
     if (stored) {
       setTheme(stored);
     }
+    setMounted(true);
   }, []);
 
+  // Apply theme to document
   useEffect(() => {
     if (mounted) {
       document.documentElement.classList.remove("light", "dark");

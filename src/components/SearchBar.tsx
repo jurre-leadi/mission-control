@@ -106,7 +106,7 @@ export function SearchBar({
             <div className="p-4 text-center text-muted">Searching...</div>
           ) : !hasResults ? (
             <div className="p-4 text-center text-muted">
-              No results for "{debouncedQuery}"
+              No results for &quot;{debouncedQuery}&quot;
             </div>
           ) : (
             <div className="p-2">

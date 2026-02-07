@@ -1,0 +1,10 @@
+name = "mission-control"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[site]
+bucket = ".vercel/output/static"
+
+[vars]
+# Add your Convex deployment URL here
+# NEXT_PUBLIC_CONVEX_URL = "https://your-deployment.convex.cloud"
