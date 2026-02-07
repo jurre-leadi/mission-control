@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mission Control Dashboard
 
-## Getting Started
+A real-time dashboard for monitoring AI assistant activities, scheduling tasks, and searching across all your data.
 
-First, run the development server:
+![Mission Control](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![Convex](https://img.shields.io/badge/Convex-Database-blue)
+![Tailwind](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss)
+
+## Features
+
+### ⚡ Activity Feed (`/activity`)
+- Real-time feed of all AI assistant actions
+- Filter by action type, status, and date
+- Search within activities
+- Infinite scroll for large datasets
+- Color-coded status indicators
+
+### 📅 Calendar View (`/calendar`)
+- Weekly calendar with time slots
+- Navigate between weeks
+- Today highlighted
+- Color-coded task types
+- Click tasks for detailed modal view
+
+### 🔍 Global Search (`/search`)
+- Search across everything: documents, activities, tasks
+- Instant results with relevance scoring
+- Preview snippets with highlighted matches
+- Filter by content type
+
+## Tech Stack
+
+- **Frontend**: Next.js 16 + React 19
+- **Database**: Convex (real-time sync)
+- **Styling**: Tailwind CSS 4
+- **TypeScript**: Full type safety
+
+## Setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Set up Convex
+
+```bash
+# Login to Convex (or create an account)
+npx convex login
+
+# Initialize Convex and start the dev server
+npx convex dev
+```
+
+This will:
+- Create a new Convex project (or connect to existing)
+- Generate the `_generated` types
+- Start the Convex dev server
+
+### 3. Configure environment
+
+After running `npx convex dev`, copy the deployment URL:
+
+```bash
+# .env.local
+NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+```
+
+### 4. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Seed example data
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Click the "Seed Example Data" button on the dashboard to populate with sample activities, tasks, and documents.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+mission-control/
+├── convex/
+│   ├── schema.ts          # Database schema
+│   ├── activities.ts      # Activity queries & mutations
+│   ├── tasks.ts           # Task queries & mutations
+│   ├── search.ts          # Global search functionality
+│   └── seed.ts            # Seed data function
+├── src/
+│   ├── app/
+│   │   ├── page.tsx       # Dashboard
+│   │   ├── activity/      # Activity feed page
+│   │   ├── calendar/      # Calendar page
+│   │   └── search/        # Global search page
+│   └── components/
+│       ├── ActivityFeed.tsx
+│       ├── Calendar.tsx
+│       ├── SearchBar.tsx
+│       ├── Navigation.tsx
+│       ├── ConvexClientProvider.tsx
+│       └── ThemeProvider.tsx
+└── ...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database Schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Activities
+```typescript
+{
+  timestamp: number,
+  actionType: string,
+  description: string,
+  status: "success" | "failed" | "pending",
+  metadata?: { source, target, duration, error, tags }
+}
+```
 
-## Deploy on Vercel
+### Scheduled Tasks
+```typescript
+{
+  title: string,
+  description?: string,
+  startTime: number,
+  endTime?: number,
+  taskType: string,
+  status: "scheduled" | "completed" | "cancelled",
+  color?: string,
+  metadata?: { location, attendees, priority, recurring }
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Search Index
+```typescript
+{
+  title: string,
+  content: string,
+  contentType: string,
+  sourcePath?: string,
+  timestamp: number,
+  preview: string
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Dark Mode
+
+Dark mode is enabled by default. Toggle with the 🌙/☀️ button in the navigation bar. Theme preference is persisted in localStorage.
+
+## Scripts
+
+```bash
+npm run dev      # Start dev server
+npm run build    # Production build
+npm run start    # Start production server
+npm run lint     # Run ESLint
+```
+
+## Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Submit a pull request
+
+## License
+
+MIT
